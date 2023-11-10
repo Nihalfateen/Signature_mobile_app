@@ -9,11 +9,13 @@ import '../../../../../core/constants/app_colors.dart';
 
 
 class ButtonsTableWidget extends StatelessWidget {
-  const ButtonsTableWidget({Key? key,required this.itemText1,required this.itemText2,required this.itemText3,required this.style}) : super(key: key);
+  const ButtonsTableWidget({Key? key,required this.itemText1,required this.itemText2,required this.itemText3,required this.style1,this.style2,this.style3}) : super(key: key);
   final String itemText1;
   final String itemText2;
   final String itemText3;
-  final TextStyle style;
+  final TextStyle style1;
+  final TextStyle? style2;
+  final TextStyle? style3;
   @override
   Widget build(BuildContext context) {
     final meetingsCubit = context.watch<MeetingsCubit>();
@@ -22,7 +24,7 @@ class ButtonsTableWidget extends StatelessWidget {
       // mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
         TextButton(
-         onPressed: () { meetingsCubit.detailsMeetings();}, child: Text(itemText1,style:style,),
+         onPressed: () { meetingsCubit.detailsMeetings();}, child: Text(itemText1,style:style1,),
         ),
         VerticalDivider(
           color: AppColors.black1,
@@ -30,7 +32,7 @@ class ButtonsTableWidget extends StatelessWidget {
         ),
         Spacer(),
         TextButton(
-          onPressed: () { meetingsCubit.attendanceMeetings();}, child: Text(itemText2,style:style,),
+          onPressed: () { meetingsCubit.attendanceMeetings();}, child: Text(itemText2,style:style2,),
         ),
         Spacer(),
         VerticalDivider(
@@ -39,7 +41,7 @@ class ButtonsTableWidget extends StatelessWidget {
           thickness: 1,
         ),
         TextButton(
-          onPressed: () { meetingsCubit.recommendationsMeetings();}, child: Text(itemText3,style:style,),
+          onPressed: () { meetingsCubit.recommendationsMeetings();}, child: Text(itemText3,style:style3,),
         ),
     ]
     );

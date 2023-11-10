@@ -21,7 +21,7 @@ class HomeBottomNavBar extends StatelessWidget {
           activeLabel: "Home",
           icon: Icon(Icons.home),
           activeIcon:
-          Icon(Icons.home, color: AppColors.red1,),
+          Icon(Icons.home, color: AppColors.button,),
         ),
         navBarItem(
           context: context,
@@ -29,7 +29,7 @@ class HomeBottomNavBar extends StatelessWidget {
           naviIndex: index,
           activeLabel: "Meetings",
           icon: Icon(Icons.group),
-          activeIcon: Icon(Icons.group, color: AppColors.red1,),
+          activeIcon: Icon(Icons.group, color: AppColors.button,),
         ),
         navBarItem(
           context: context,
@@ -37,7 +37,7 @@ class HomeBottomNavBar extends StatelessWidget {
           naviIndex: index,
           activeLabel: "Notifications",
           icon: Icon(Icons.notifications_active_outlined),
-          activeIcon:  Icon(Icons.notifications_active_outlined, color: AppColors.red1,),
+          activeIcon:  Icon(Icons.notifications_active_outlined, color: AppColors.button,),
         ),
         navBarItem(
           context: context,
@@ -45,7 +45,7 @@ class HomeBottomNavBar extends StatelessWidget {
           naviIndex: index,
           activeLabel: "Profile",
           icon: Icon(Icons.person),
-          activeIcon:  Icon(Icons.person, color: AppColors.red1,),
+          activeIcon:  Icon(Icons.person, color: AppColors.button,),
         ),
 
       ],
@@ -89,7 +89,7 @@ class HomeBottomNavBar extends StatelessWidget {
                   height: 3,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(2),
-                      color: selected ?AppColors.red1:Colors.transparent)
+                      color: selected ?AppColors.button:Colors.transparent)
               ),
               SizedBox(height: 10.h,),
               selected ? activeIcon : icon,
@@ -99,7 +99,7 @@ class HomeBottomNavBar extends StatelessWidget {
               Text(
                 tr(activeLabel),
                 style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                    color: selected ? AppColors.red1 : AppColors.black1,fontWeight:selected ? FontWeight.w700:FontWeight.w300 ),
+                    color: selected ? AppColors.button : AppColors.black1,fontWeight:selected ? FontWeight.w700:FontWeight.w300 ),
               )
             ],
           ),
