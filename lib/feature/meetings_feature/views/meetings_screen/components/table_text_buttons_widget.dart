@@ -24,7 +24,7 @@ class ButtonsTableWidget extends StatelessWidget {
       // mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
         TextButton(
-         onPressed: () { meetingsCubit.detailsMeetings();}, child: Text(itemText1,style:style1,),
+         onPressed: () {}, child: Text(itemText1,style:style1,),
         ),
         VerticalDivider(
           color: AppColors.black1,

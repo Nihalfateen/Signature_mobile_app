@@ -7,6 +7,7 @@ import 'package:tawqee3_mobile_app/feature/meetings_feature/views/meetings_scree
 
 import '../../../../core/constants/app_colors.dart';
 import '../../../DashBoard_feature/views/dashboard_screen/components/upcoming_widget.dart';
+import 'components/meeting_details_widget.dart';
 import 'components/meetings_card_widget.dart';
 import 'components/table_text_buttons_widget.dart';
 
@@ -20,15 +21,21 @@ class MeetingsScreen extends StatefulWidget {
 class _MeetingsScreenState extends State<MeetingsScreen> {
   @override
   Widget build(BuildContext context) {
+    final meetingsCubit = context.watch<MeetingsCubit>();
     return Scaffold(
       appBar: AppBar(
         elevation: 1.2,
-        title: Text(
-          "Meetings",
-          style: Theme.of(context)
-              .textTheme
-              .titleMedium!
-              .copyWith(color: AppColors.button),
+        title: InkWell(
+          onTap: (){
+            meetingsCubit.meetingsScreen();
+          },
+          child: Text(
+            "Meetings",
+            style: Theme.of(context)
+                .textTheme
+                .titleMedium!
+                .copyWith(color: AppColors.button),
+          ),
         ),
       ),
       body: BlocConsumer<MeetingsCubit, MeetingsState>(
@@ -40,6 +47,8 @@ class _MeetingsScreenState extends State<MeetingsScreen> {
           if (current is MeetingsAttendance) {
             return true;
           } else if (current is MeetingsRecommendations) {
+            return true;
+          }else if (current is MeetingsDetails) {
             return true;
           }
           return false;
@@ -187,6 +196,48 @@ class _MeetingsScreenState extends State<MeetingsScreen> {
                   ]),
             );
           }
+          if (state is MeetingsDetails) {
+            return SingleChildScrollView(
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      padding: EdgeInsets.only(left: 10.w, right: 10.w),
+                      height: 52.h,
+                      decoration: BoxDecoration(color: AppColors.button),
+                      child: ButtonsTableWidget(
+                        itemText1: 'Details',
+                        itemText2: 'Attendance',
+                        itemText3: 'Recommendations',
+                        style1: Theme.of(context)
+                            .textTheme
+                            .displaySmall!
+                            .copyWith(color: Colors.indigo),
+                        style2: Theme.of(context)
+                            .textTheme
+                            .displaySmall!
+                            .copyWith(color: AppColors.white1),
+                        style3: Theme.of(context)
+                            .textTheme
+                            .displaySmall!
+                            .copyWith(color:AppColors.white1),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10.h,
+                    ),
+                        MeetingsDetailsWidget(
+                            meetingTitle: "AAAA",
+                            meetingDescription: "AA",
+                            dateText: '28-8-2023',
+                            peopleText: 'Group1',
+                            personText: 'demo1',
+                            flagTitle: 'planned', meetingBody: 'A', statusTitle: 'Ready',
+                          ),
+
+                  ]),
+            );
+          }
           return SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -219,7 +270,9 @@ class _MeetingsScreenState extends State<MeetingsScreen> {
                   shrinkWrap: true,
                   itemBuilder: (context, int index) {
                     return InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        meetingsCubit.detailsMeetings();
+                      },
                       child: MeetingsCardWidget(
                         meetingTitle: "AAAA",
                         meetingDescription: "AA",

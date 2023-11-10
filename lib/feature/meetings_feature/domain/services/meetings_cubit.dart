@@ -19,6 +19,9 @@ class MeetingsCubit extends Cubit<MeetingsState> {
     emit(MeetingsRecommendations());
   }
   void detailsMeetings()async{
+    emit(MeetingsDetails());
+  }
+  void meetingsScreen()async{
     emit(MeetingsInitial());
   }
 }
