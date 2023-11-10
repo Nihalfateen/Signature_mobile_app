@@ -50,7 +50,7 @@ class RegisterScreen extends StatelessWidget {
                         label: "Password",
                         controller: authCubit.passwordController,
                         validator: (value) {
-                          if (value!.isEmpty || value.length < 9) {
+                          if (value!.isEmpty) {
                             return "Enter a password";
                           }
                         },
@@ -74,7 +74,7 @@ class RegisterScreen extends StatelessWidget {
         .formKey.currentState!
         .validate()) {
                       context.go(HomeScreen.route);
-                        }}, containerColor: AppColors.red1, borderColor:AppColors.black1, radius: 8)
+                        }}, containerColor: AppColors.button, borderColor:AppColors.button, radius: 8,style:Theme.of(context).textTheme.labelLarge,)
                   ],
                 ),
               ),

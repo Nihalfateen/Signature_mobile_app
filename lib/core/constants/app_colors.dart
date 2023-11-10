@@ -21,6 +21,8 @@ class AppColors{
   static const Color gray3 = Color(0xff231F20);
   static const Color gray4 = Color(0xffF6F6F6);
   static const Color gray5= Color(0xffF5F5F5);
+  static const Color gray6= Colors.white54;
+  static const Color gray7= Colors.black12;
 
 
 
@@ -52,7 +54,9 @@ class AppColors{
   static const Color dividerColor = Color.fromRGBO(224, 224, 224, .5);
 
   ///blue
-  static const Color blue = Color(0xff00295B);
+ static const Color activeText =Color(0xff317eac);
+ static const Color button =Color(0xff1c94d0);
+
 
 
 
