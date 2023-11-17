@@ -4,6 +4,15 @@ part of 'meetings_cubit.dart';
 abstract class MeetingsState {}
 
 class MeetingsInitial extends MeetingsState {}
-class MeetingsAttendance extends MeetingsState {}
-class MeetingsRecommendations extends MeetingsState {}
-class MeetingsDetails extends MeetingsState {}
+class MeetingsError extends MeetingsState {
+  String ?error;
+
+  MeetingsError({this.error});
+}
+class MeetingsLoading extends MeetingsState {}
+class MeetingsDone extends MeetingsState {}
+class MeetingsEmpty extends MeetingsState {}
+class MeetingsAttendanceDone extends MeetingsState {}
+class MeetingsAttendanceEmpty extends MeetingsState {}
+class MeetingsDetailsDone extends MeetingsState {}
+class SelectedMeetingsTabBar extends MeetingsState{}

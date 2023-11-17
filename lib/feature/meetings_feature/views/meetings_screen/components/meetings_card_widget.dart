@@ -1,33 +1,39 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
+import 'package:tawqee3_mobile_app/feature/meetings_feature/data/model/meetings_model/meetings_model.dart';
 import 'package:tawqee3_mobile_app/feature/meetings_feature/data/model/sheet_model.dart';
 import 'package:tawqee3_mobile_app/feature/meetings_feature/domain/services/meetings_cubit.dart';
+import 'package:tawqee3_mobile_app/feature/meetings_feature/views/meetings_screen/meetings_details_screen.dart';
 
 import '../../../../../core/constants/app_colors.dart';
 import '../../../../DashBoard_feature/views/dashboard_screen/components/meetings_info_widget.dart';
 
 class MeetingsCardWidget extends StatelessWidget {
   const MeetingsCardWidget(
-      {Key? key,
-      required this.meetingTitle,
-      required this.meetingDescription,
-      required this.dateText,
-      required this.peopleText,
-      required this.personText,
-      required this.flagTitle})
-      : super(key: key);
-  final String? meetingTitle;
-  final String? meetingDescription;
-  final String? dateText;
-  final String? personText;
-  final String? peopleText;
-  final String? flagTitle;
+      {Key? key,required this.meetingsModel}) : super(key: key);
+  final MeetingsModel?meetingsModel;
 
   @override
   Widget build(BuildContext context) {
     final meetingsCubit = context.watch<MeetingsCubit>();
-    return Container(
+    return ListView.builder(
+        shrinkWrap: true,
+        physics: NeverScrollableScrollPhysics(),
+    itemCount:meetingsCubit.meetingsModel!.meetingsBodyModel!.length,
+    itemBuilder: (context, int index) {
+    return InkWell(
+    onTap: () {
+      context.goNamed(MeetingsDetailsScreen.routeName,
+          pathParameters: {
+            "meetingId": meetingsCubit
+                .meetingsModel!.meetingsBodyModel![index].id
+                .toString()
+          });
+
+    },
+    child:Container(
       padding:
           EdgeInsets.only(left: 5.w, right: 5.w, top: 10.h, bottom: 10.h),
       margin: EdgeInsets.only(left: 10.w, right: 10.w, top: 15.h),
@@ -39,7 +45,7 @@ class MeetingsCardWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "$meetingTitle",
+            "${meetingsCubit.meetingsModel!.meetingsBodyModel![index].name}",
             style: Theme.of(context)
                 .textTheme
                 .titleMedium!
@@ -52,19 +58,25 @@ class MeetingsCardWidget extends StatelessWidget {
             children: [
               MeetingsInfoWidget(
                 imageIcon: Icons.date_range,
-                itemText: "$dateText",
+                itemText: "${meetingsCubit.meetingsModel!.meetingsBodyModel![index].date}",
               ),
               SizedBox(
                 width: 10.w,
               ),
-              MeetingsInfoWidget(
-                imageIcon: Icons.person,
-                itemText: "$personText",
+              Row(
+                children: [
+                  Icon( Icons.person,color:AppColors.gray2,),
+                  SizedBox(
+                    width: ScreenUtil().screenWidth/4,
+                    child: Text(
+                      "${meetingsCubit.meetingsModel!.meetingsBodyModel![index].leaderName}",
+                      style: Theme.of(context)
+                          .textTheme
+                          .displaySmall!.copyWith(color: AppColors.gray2),
+                    ),
+                  ),
+                ],
               ),
-              SizedBox(
-                width: 10.w,
-              ),
-              SizedBox(width:ScreenUtil().screenWidth/8,),
               Container(
                 padding:EdgeInsets.only(left:8.w,right:8.w,top:5.h,bottom:8.h),
                 decoration: BoxDecoration(
@@ -72,7 +84,7 @@ class MeetingsCardWidget extends StatelessWidget {
                   borderRadius: BorderRadius.circular(16),
                 ),
                 child: Text(
-                  "$flagTitle",
+                  "${meetingsCubit.meetingsModel!.meetingsBodyModel![index].status}",
                   style: Theme.of(context).textTheme.titleSmall!.copyWith(
                       color: Colors.purple, fontWeight: FontWeight.bold),
                 ),
@@ -131,13 +143,13 @@ class MeetingsCardWidget extends StatelessWidget {
           SizedBox(height:10.h,),
           MeetingsInfoWidget(
             imageIcon: Icons.people,
-            itemText: "$peopleText",
+            itemText: "${meetingsCubit.meetingsModel!.meetingsBodyModel![index].groupsNames}",
           ),
           SizedBox(
             height: 10.h,
           ),
           Text(
-            "$meetingDescription",
+            "${meetingsCubit.meetingsModel!.meetingsBodyModel![index].description}",
             style: Theme.of(context)
                 .textTheme
                 .titleMedium!
@@ -145,6 +157,7 @@ class MeetingsCardWidget extends StatelessWidget {
           ),
         ],
       ),
-    );
+    ));
   }
+    );}
 }

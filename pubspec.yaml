@@ -68,6 +68,8 @@ dependencies:
   dotted_border: ^2.0.0+3
   flutter_html: ^3.0.0-beta.2
   network_logger: ^1.0.4
+  get_it: ^7.6.0
+
 
 
 dev_dependencies:

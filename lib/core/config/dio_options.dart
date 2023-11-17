@@ -7,7 +7,7 @@ import '../services/preference_services.dart';
 class DioConfigOptions {
   static Future<BaseOptions> getBaseOption() async {
     BaseOptions options = BaseOptions(
-        baseUrl: AppUrl.getServerUrl(""),
+        baseUrl: AppUrl.getServerUrl(appFlavor),
         connectTimeout: const Duration(milliseconds: 30000),
         receiveTimeout: const Duration(milliseconds: 30000),
         followRedirects: false,

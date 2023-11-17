@@ -6,13 +6,15 @@ import 'core/config/app_cubits.dart';
 import 'core/config/app_route.dart';
 import 'core/config/observer.dart';
 import 'core/constants/app_colors.dart';
+import 'core/constants/app_flavors.dart';
 import 'core/constants/app_pathes.dart';
 import 'core/constants/app_theme.dart';
+import 'core/services/locator_service.dart';
 import 'core/services/restart_app.dart';
 import 'fileExport.dart';
 
-// const appFlavor =
-// String.fromEnvironment('flavor', defaultValue: AppFlavors.staging);
+const appFlavor =
+String.fromEnvironment('flavor', defaultValue: AppFlavors.staging);
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,6 +22,7 @@ void main() async {
   await ScreenUtil.ensureScreenSize();
   Bloc.observer = AppBlocObserver();
   await Preference.init();
+  setupLocator();
   // await Firebase.initializeApp(
   //   options: DefaultFirebaseOptions.currentPlatform,
   // );
