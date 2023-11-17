@@ -30,8 +30,24 @@ final String?peopleText;
               MeetingsInfoWidget(imageIcon:Icons.date_range, itemText:"$dateText",),
               SizedBox(width:10.w,),
               MeetingsInfoWidget(imageIcon:Icons.person, itemText:"$personText" ,),
-              SizedBox(width:10.w,),
-              MeetingsInfoWidget(imageIcon:Icons.people, itemText: "$peopleText",),
+
+              // MeetingsInfoWidget(imageIcon:Icons.people, itemText: "$peopleText",),
+
+            ],
+          ),
+          SizedBox(height:10.w,),
+          Row(
+            children: [
+              Icon(Icons.people,color:AppColors.gray2,),
+              SizedBox(
+                width: 5.w,
+              ),
+              Text(
+                "$peopleText" ,
+                style: Theme.of(context)
+                    .textTheme
+                    .displaySmall!.copyWith(color: AppColors.gray2),
+              ),
             ],
           ),
           SizedBox(height: 10.h,),

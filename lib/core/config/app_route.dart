@@ -1,12 +1,13 @@
-
+import 'package:tawqee3_mobile_app/feature/DashBoard_feature/domain/services/home_cubit.dart';
 import 'package:tawqee3_mobile_app/feature/DashBoard_feature/views/main_screen/main_screen.dart';
 import 'package:tawqee3_mobile_app/feature/auth_feature/views/screens/login_screen.dart';
 import 'package:tawqee3_mobile_app/feature/meetings_feature/domain/services/meetings_cubit.dart';
-
+import 'package:tawqee3_mobile_app/feature/meetings_feature/views/meetings_screen/meetings_details_screen.dart';
+import 'package:tawqee3_mobile_app/feature/notifications_feature/domain/notifications_cubit.dart';
 
 import '../../feature/DashBoard_feature/views/dashboard_screen/home_screen.dart';
 import '../../feature/auth_feature/domain/services/auth_cubit.dart';
-import '../../feature/meetings_feature/views/meetings_screen/meetings_screen.dart';
+import '../../feature/meetings_feature/views/meetings_screen/meeting_screen.dart';
 import '../../feature/notifications_feature/views/notifications_screen.dart';
 import '../../feature/profile_feature/views/profile_screen.dart';
 import '../../fileExport.dart';
@@ -40,7 +41,6 @@ class AppRouter {
   static final route = GoRouter(
       navigatorKey: navigatorKey,
       debugLogDiagnostics: true,
-
       routes: <RouteBase>[
         GoRoute(
           path: '/',
@@ -50,7 +50,6 @@ class AppRouter {
             child: RegisterScreen(),
           ),
         ),
-
         StatefulShellRoute.indexedStack(
             builder: (context, state, navigationShell) {
               return MainScreen(navigationShell);
@@ -63,9 +62,11 @@ class AppRouter {
                 // each routes with its sub routes if available e.g feed/uuid/details
                 routes: <RouteBase>[
                   GoRoute(
-                    path: HomeScreen.route,
-                    builder: (context, state) =>  HomeScreen(),
-                    ),
+                      path: HomeScreen.route,
+                      builder: (context, state) => BlocProvider(
+                            create: (context) => HomeCubit(),
+                            child: HomeScreen(),
+                          )),
                 ],
               ),
               StatefulShellBranch(
@@ -73,20 +74,30 @@ class AppRouter {
                   routes: <RouteBase>[
                     GoRoute(
                         path: MeetingsScreen.route,
-                        builder: (context, state) =>BlocProvider(
-                          create: (context) => MeetingsCubit(),
-                          child: MeetingsScreen(),
-                        ),
+                        builder: (context, state) => BlocProvider(
+                              create: (context) => MeetingsCubit(),
+                              child: MeetingsScreen(),
+                            ),
                         routes: [
-
+                          GoRoute(
+                              path: MeetingsDetailsScreen.routePath,
+                              name: MeetingsDetailsScreen.routeName,
+                              builder: (context, state) =>
+                                  MeetingsDetailsScreen(
+                                    meetingId:
+                                    state.pathParameters["meetingId"],
+                                  )),
+                        ]),
                   ]),
-       ]),
               StatefulShellBranch(
                   navigatorKey: shellNavigatorNotificationsScreenKey,
                   routes: <RouteBase>[
                     GoRoute(
                         path: NotificationsScreen.route,
-                        builder: (context, state) => NotificationsScreen(),
+                        builder: (context, state) =>  BlocProvider(
+                          create: (context) => NotificationsCubit(),
+                          child: NotificationsScreen(),
+                        ),
                         routes: [
 
                         ]),
@@ -97,10 +108,8 @@ class AppRouter {
                     GoRoute(
                         path: ProfileScreen.route,
                         builder: (context, state) => ProfileScreen(),
-                        routes: [
-
-                        ]),
+                        routes: []),
                   ])
-  ])
-  ]);
+            ])
+      ]);
 }

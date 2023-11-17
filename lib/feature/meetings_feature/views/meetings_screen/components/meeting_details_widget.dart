@@ -1,43 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:tawqee3_mobile_app/feature/meetings_feature/data/model/meetings_model/meetings_body_model.dart';
 import 'package:tawqee3_mobile_app/feature/meetings_feature/data/model/sheet_model.dart';
 import 'package:tawqee3_mobile_app/feature/meetings_feature/domain/services/meetings_cubit.dart';
-
+import 'package:flutter_html/flutter_html.dart';
 import '../../../../../core/constants/app_colors.dart';
 import '../../../../DashBoard_feature/views/dashboard_screen/components/meetings_info_widget.dart';
 
-class MeetingsDetailsWidget extends StatelessWidget {
-  const MeetingsDetailsWidget(
-      {Key? key,
-        required this.meetingTitle,
-        required this.meetingDescription,
-        required this.dateText,
-        required this.peopleText,
-        required this.personText,
-        required this.meetingBody,
-        required this.statusTitle,
-        required this.flagTitle})
-      : super(key: key);
-  final String? meetingTitle;
-  final String? meetingDescription;
-  final String? dateText;
-  final String? personText;
-  final String? peopleText;
-  final String? flagTitle;
-  final String? statusTitle;
-  final String? meetingBody;
+class MeetingsDetailsWidget extends StatefulWidget {
+  final MeetingsBodyModel? meetingsBodyModel;
+final String?meetingId;
+  const MeetingsDetailsWidget({Key? key, this.meetingsBodyModel,this.meetingId}): super(key: key);
 
+  @override
+  State<MeetingsDetailsWidget> createState() => _MeetingsDetailsWidgetState();
+}
+
+class _MeetingsDetailsWidgetState extends State<MeetingsDetailsWidget> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    context.read<MeetingsCubit>().getMeetingsDetails(widget.meetingId);
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     final meetingsCubit = context.watch<MeetingsCubit>();
     return Padding(
-      padding: EdgeInsets.only(left: 10.w, right: 10.w, top: 10.h, bottom: 10.h),
+      padding:
+          EdgeInsets.only(left: 10.w, right: 10.w, top: 10.h, bottom: 10.h),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "$meetingTitle",
+            "${widget.meetingsBodyModel!.name}",
             style: Theme.of(context)
                 .textTheme
                 .titleMedium!
@@ -49,13 +46,14 @@ class MeetingsDetailsWidget extends StatelessWidget {
           Row(
             children: [
               Container(
-                padding:EdgeInsets.only(left:8.w,right:8.w,top:5.h,bottom:8.h),
+                padding: EdgeInsets.only(
+                    left: 8.w, right: 8.w, top: 5.h, bottom: 8.h),
                 decoration: BoxDecoration(
                   color: Colors.purpleAccent.withOpacity(.23),
                   borderRadius: BorderRadius.circular(16),
                 ),
                 child: Text(
-                  "$flagTitle",
+                  "${widget.meetingsBodyModel!.status}",
                   style: Theme.of(context).textTheme.titleSmall!.copyWith(
                       color: Colors.purple, fontWeight: FontWeight.bold),
                 ),
@@ -65,48 +63,42 @@ class MeetingsDetailsWidget extends StatelessWidget {
               ),
               MeetingsInfoWidget(
                 imageIcon: Icons.date_range,
-                itemText: "$dateText",
+                itemText: "${widget.meetingsBodyModel!.date}",
               ),
               SizedBox(
                 width: 10.w,
               ),
-              MeetingsInfoWidget(
-                imageIcon: Icons.person,
-                itemText: "$personText",
-              ),
-              SizedBox(
-                width: 10.w,
-              ),
+              Spacer(),
               Container(
-                padding:EdgeInsets.only(left:8.w,right:8.w,top:5.h,bottom:8.h),
+                padding: EdgeInsets.only(
+                    left: 8.w, right: 8.w, top: 5.h, bottom: 8.h),
                 decoration: BoxDecoration(
                   color: AppColors.green1,
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: Text(
-                  "$statusTitle",
+                  "${widget.meetingsBodyModel!.status}",
                   style: Theme.of(context).textTheme.titleSmall!.copyWith(
                       color: AppColors.black1, fontWeight: FontWeight.bold),
                 ),
               ),
               SizedBox(
                 width: 25.w,
-                child: DropdownButtonFormField<
-                    SheetModel>(
+                child: DropdownButtonFormField<SheetModel>(
                     hint: Text(
                       "",
                       style: Theme.of(context)
                           .textTheme
                           .titleSmall!
-                          .copyWith(
-                          color: AppColors.orange0,
-                          fontSize: 10.sp),
+                          .copyWith(color: AppColors.orange0, fontSize: 10.sp),
                     ),
                     value: meetingsCubit.selectedChoice,
                     iconSize: 20.sp,
-                    iconEnabledColor:  AppColors.black1,
-                    iconDisabledColor:  AppColors.black1,
-                    icon: Padding(padding: EdgeInsets.only(left: 0.h),child: Icon(Icons.more_vert)),
+                    iconEnabledColor: AppColors.black1,
+                    iconDisabledColor: AppColors.black1,
+                    icon: Padding(
+                        padding: EdgeInsets.only(left: 0.h),
+                        child: Icon(Icons.more_vert)),
                     isDense: true,
                     isExpanded: true,
                     decoration: InputDecoration(
@@ -115,13 +107,9 @@ class MeetingsDetailsWidget extends StatelessWidget {
                         ),
                         focusedBorder: UnderlineInputBorder(
                           borderSide: BorderSide(color: Colors.transparent),
-                        )
-                    ),
-                    onChanged: (value) {
-
-                    },
-                    items: meetingsCubit.sheetList
-                        .map((SheetModel val) {
+                        )),
+                    onChanged: (value) {},
+                    items: meetingsCubit.sheetList.map((SheetModel val) {
                       return DropdownMenuItem(
                           value: val,
                           child: Text(
@@ -131,11 +119,10 @@ class MeetingsDetailsWidget extends StatelessWidget {
                                 .textTheme
                                 .displaySmall!
                                 .copyWith(
-                              color: AppColors.black1,
-                              fontSize: 10.sp,
-                            ),
-                          )
-                      );
+                                  color: AppColors.black1,
+                                  fontSize: 10.sp,
+                                ),
+                          ));
                     }).toList()),
               )
             ],
@@ -143,11 +130,32 @@ class MeetingsDetailsWidget extends StatelessWidget {
           SizedBox(
             width: 10.w,
           ),
-          MeetingsInfoWidget(
-            imageIcon: Icons.people,
-            itemText: "$peopleText",
+          Row(
+            children: [
+              MeetingsInfoWidget(
+                imageIcon: Icons.people,
+                itemText: "${widget.meetingsBodyModel!.groupsNames}",
+              ),
+              Row(
+                children: [
+                  Icon(
+                    Icons.person,
+                    color: AppColors.gray2,
+                  ),
+                  SizedBox(
+                    width: 5.w,
+                  ),
+                  Text(
+                    "${widget.meetingsBodyModel!.leaderName}",
+                    style: Theme.of(context)
+                        .textTheme
+                        .displaySmall!
+                        .copyWith(color: AppColors.gray2),
+                  ),
+                ],
+              ),
+            ],
           ),
-
           SizedBox(
             height: 15.h,
           ),
@@ -156,19 +164,21 @@ class MeetingsDetailsWidget extends StatelessWidget {
             style: Theme.of(context)
                 .textTheme
                 .titleMedium!
-                .copyWith(color:AppColors.black1),
+                .copyWith(color: AppColors.black1),
           ),
           SizedBox(
             height: 10.h,
           ),
           Text(
-            "$meetingDescription",
+            "${widget.meetingsBodyModel!.description}",
             style: Theme.of(context)
                 .textTheme
                 .titleMedium!
                 .copyWith(color: AppColors.gray2),
           ),
-          Divider(color:AppColors.gray7,),
+          Divider(
+            color: AppColors.gray7,
+          ),
           SizedBox(
             height: 10.h,
           ),
@@ -177,17 +187,77 @@ class MeetingsDetailsWidget extends StatelessWidget {
             style: Theme.of(context)
                 .textTheme
                 .titleMedium!
-                .copyWith(color:AppColors.black1),
+                .copyWith(color: AppColors.black1),
           ),
-          SizedBox(height:8.h,),
+          SizedBox(
+            height: 8.h,
+          ),
+          Html(
+            data: "${widget.meetingsBodyModel!.meetingBody}",
+          ),
+          Divider(
+            color: AppColors.gray7,
+          ),
           Text(
-            "$meetingBody",
+            "Meeting Items",
             style: Theme.of(context)
                 .textTheme
                 .titleMedium!
-                .copyWith(color: AppColors.gray2),
+                .copyWith(color: AppColors.black1),
           ),
-          Divider(color:AppColors.gray7,),
+          SizedBox(
+            height: 10.h,
+          ),
+          ListView.builder(
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              itemCount: widget.meetingsBodyModel!.items!.length,
+              itemBuilder: (context, int index) {
+                return Container(
+                  margin: EdgeInsets.only(left: 16.w, right: 16.w),
+                  padding: EdgeInsets.only(
+                      left: 10.w, right: 10.w, top: 10.h, bottom: 10.h),
+                  decoration: BoxDecoration(
+                    color: AppColors.white1,
+                    border: Border.all(color: AppColors.black1),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          SizedBox(
+                            width:ScreenUtil().screenWidth/2.5,
+                            child: Text(
+                              widget.meetingsBodyModel!.items![index]
+                                          .description ==
+                                      null
+                                  ? ""
+                                  : "${widget.meetingsBodyModel!.items![index].description}",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .displaySmall!
+                                  .copyWith(color: Colors.black),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                          Text(
+                            widget.meetingsBodyModel!.items![index].number ==
+                                    null
+                                ? ""
+                                : "${widget.meetingsBodyModel!.items![index].number}",
+                            style: Theme.of(context)
+                                .textTheme
+                                .displaySmall!
+                                .copyWith(color: Colors.black),
+                            textAlign: TextAlign.center,
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                );
+              }),
         ],
       ),
     );

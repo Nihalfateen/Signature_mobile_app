@@ -5,7 +5,6 @@ export 'package:logger/logger.dart';
 export 'package:flutter_screenutil/flutter_screenutil.dart';
 export 'package:flutter/services.dart';
 
-export '../../../../core/constants/app_assets_roots.dart';
 export 'package:go_router/go_router.dart';
 
 export '../../../../core/services/preference_services.dart';
