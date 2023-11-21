@@ -32,9 +32,9 @@ class MeetingsCubit extends Cubit<MeetingsState> {
   MeetingsAttendanceModel? meetingsAttendanceModel;
 
 
-  Future<void> getMeetingsDetails(String? meetingId) async {
-    emit(MeetingsLoading());
-    var response = meetingsRepo.getMeetingsDetails(meetingId);
+  Future<void> getMeetingsDetails() async {
+    emit(MeetingsDetailsLoading());
+    var response = meetingsRepo.getMeetingsDetails(meetingsBodyModel!.id.toString());
     await response.excute(
       onFailed: (failed) {
         errorMessage = failed.message;
@@ -66,9 +66,9 @@ class MeetingsCubit extends Cubit<MeetingsState> {
     );
   }
 
-  Future<void> getMeetingsAttendance(String? meetingId) async {
-    emit(MeetingsLoading());
-    var response = meetingsRepo.getMeetingsAttendance(meetingId);
+  Future<void> getMeetingsAttendance() async {
+    emit(MeetingsAttendanceLoading());
+    var response = meetingsRepo.getMeetingsAttendance(meetingsBodyModel!.id.toString());
     await response.excute(
       onFailed: (failed) {
         errorMessage = failed.message;

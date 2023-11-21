@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:logger/logger.dart';
 import 'package:tawqee3_mobile_app/feature/meetings_feature/data/model/meetings_model/meetings_model.dart';
 import 'package:tawqee3_mobile_app/feature/meetings_feature/data/model/sheet_model.dart';
 import 'package:tawqee3_mobile_app/feature/meetings_feature/domain/services/meetings_cubit.dart';
@@ -25,6 +26,7 @@ class MeetingsCardWidget extends StatelessWidget {
     itemBuilder: (context, int index) {
     return InkWell(
     onTap: () {
+      meetingsCubit.meetingsBodyModel = meetingsCubit.meetingsModel!.meetingsBodyModel![index];
       context.goNamed(MeetingsDetailsScreen.routeName,
           pathParameters: {
             "meetingId": meetingsCubit

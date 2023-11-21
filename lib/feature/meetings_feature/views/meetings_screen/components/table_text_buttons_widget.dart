@@ -15,6 +15,8 @@ class ButtonsTableWidget extends StatelessWidget {
           TextButton(
             onPressed: () {
               meetingsCubit.setSelectedTapWidget(0);
+              context.read<MeetingsCubit>().getMeetingsDetails();
+
             },
             child: Text(
               'Details',
@@ -33,6 +35,7 @@ class ButtonsTableWidget extends StatelessWidget {
           TextButton(
             onPressed: () {
               meetingsCubit.setSelectedTapWidget(1);
+              context.read<MeetingsCubit>().getMeetingsAttendance();
             },
             child: Text(
               'Attendance',

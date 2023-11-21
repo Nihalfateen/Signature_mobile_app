@@ -25,7 +25,7 @@ class AppUrl{
   static String Function(String) get getMeetingsRecommendations =>
           (id) => 'meetings/$id/recommendations';
 
-
+  static const postLogin ="sessions";
 
 }
  

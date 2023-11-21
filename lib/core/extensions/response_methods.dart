@@ -1,15 +1,13 @@
 import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:logger/logger.dart';
 import '../../common/model/failure_model.dart';
 import '../services/preference_services.dart';
 
 extension ResponseHandler on Response {
   dynamic handleResponse() async {
     if (statusCode == 500 ) {
-      throw FailureModel(message:"error",state:statusCode,data: data );
-    }else if (statusCode == 401 && statusMessage == "Unauthorized") {
-      await Preference.clear();
-      // GoRouter.of(navigatorKey.currentState!.context).pushReplacementNamed(LoginScreen.route);
+      throw FailureModel(message:"Internal Server Error",state:statusCode,data: "data" );
     }else if (statusCode == 404 && statusMessage == "Not Found") {
       return {};
     }

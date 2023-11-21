@@ -179,4 +179,31 @@ class DioServices {
       print((received / total * 100).toStringAsFixed(0) + "%");
     }
   }
+  Future<dynamic> postRequestWithHeaders(String token,) async {
+    try {
+      dio.options =BaseOptions(
+          baseUrl: "https://tawqeea.com/",
+          headers: {
+            "Accept": "application/json",
+            "Authorization": "Basic ${token} "
+
+          }) ;
+      Response response = await dio.post("api/v1/sessions",);
+      if (kDebugMode) {
+        Logger(printer: PrettyPrinter(), output: ConsoleOutput()).w(
+
+
+            "Response ||| ${response.requestOptions.method} ||| Status:${response.statusCode}  ${response.statusMessage}\n\n"
+                "Headers \n\n ${dio.options.headers}\n\n"
+                "Response Body ${response.data}");
+      }
+      return response.handleResponse();
+    } catch (e) {
+      if (e is DioException) {
+        throw FailureModel(
+            message: e.handleDioException(e.type), state: 0, data: "data");
+      }
+      throw Exception(e);
+    }
+  }
 }

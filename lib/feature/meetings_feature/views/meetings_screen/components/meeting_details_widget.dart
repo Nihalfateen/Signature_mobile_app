@@ -21,7 +21,6 @@ class _MeetingsDetailsWidgetState extends State<MeetingsDetailsWidget> {
   @override
   void initState() {
     // TODO: implement initState
-    context.read<MeetingsCubit>().getMeetingsDetails(widget.meetingId);
     super.initState();
   }
   @override

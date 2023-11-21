@@ -74,10 +74,7 @@ class AppRouter {
                   routes: <RouteBase>[
                     GoRoute(
                         path: MeetingsScreen.route,
-                        builder: (context, state) => BlocProvider(
-                              create: (context) => MeetingsCubit(),
-                              child: MeetingsScreen(),
-                            ),
+                        builder: (context, state) => MeetingsScreen(),
                         routes: [
                           GoRoute(
                               path: MeetingsDetailsScreen.routePath,
