@@ -1,25 +1,23 @@
 
-import 'package:tawqee3_mobile_app/feature/notifications_feature/data/model/notifications_model.dart';
+import 'package:flutter/material.dart';
 
 import '../../../../common/model/failure_model.dart';
 import '../../../../core/constants/app_urls.dart';
 import '../../../../core/services/dio_services.dart';
 import '../../../../core/services/locator_service.dart';
-import '../../../../fileExport.dart';
 
-class NotificationsRepo{
+class AuthRepo{
   final DioServices _dioServices = locator<DioServices>();
 
-  Future getNotifications() async {
+  /// login
+  Future loginCall(String token) async {
     try {
-      var response = await _dioServices.getRequest(AppUrl.getNotifications);
-      var meetings=NotificationsModel.fromJson(response);
-      return meetings;
+      var response = await _dioServices.postRequestWithHeaders(token);
+      return response;
     } on FailureModel {
       rethrow;
     } catch (e) {
       throw FailureModel(state: 0, message: e.toString(), data: e.toString());
     }
   }
-
 }

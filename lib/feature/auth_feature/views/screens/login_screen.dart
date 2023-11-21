@@ -16,7 +16,16 @@ class RegisterScreen extends StatelessWidget {
     return Scaffold(
       body: SingleChildScrollView(
         child:
-            Padding(
+            BlocConsumer<AuthCubit, AuthState>(
+  listener: (context, state) {
+    //
+    if(state is AuthDone){
+      context.go(HomeScreen.route);
+    }
+  },
+
+  builder: (context, state) {
+    return Padding(
               padding: EdgeInsets.only(top:50.h,left: 16.w,right: 16.w),
               child: Form(
                 key: authCubit.formKey,
@@ -63,22 +72,27 @@ class RegisterScreen extends StatelessWidget {
                                 : Icons.visibility_off,
                             color: AppColors.gray,
                           ),
-                          onPressed: () =>
-                              context.read<AuthCubit>().togglepasswordVisible(),
+                          onPressed: () {
+                            context.read<AuthCubit>().togglepasswordVisible();
+                          }
+
                         ),
-                        protectedText: !context.read<AuthCubit>().passwordVisible),
+                        protectedText: !context.read<AuthCubit>().passwordVisible,),
                     SizedBox(height:50.h,),
                     BigButton( height: 52.h,
                         width: ScreenUtil().screenWidth / 1.2, name: "Login", onTap:(){
     if (authCubit
         .formKey.currentState!
         .validate()) {
-                      context.go(HomeScreen.route);
+                      authCubit.loginCall();
+                      
                         }}, containerColor: AppColors.button, borderColor:AppColors.button, radius: 8,style:Theme.of(context).textTheme.labelLarge,)
                   ],
                 ),
               ),
-            ),
+            );
+  },
+),
 
 
 

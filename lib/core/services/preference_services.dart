@@ -6,23 +6,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 
 class PrefKeys {
-  static const String fcmToken = 'fcmToken';
-  static const String refreshToken = 'refreshToken';
-  static const String appSettings = 'appSettings';
-  static const String languageCode = 'language_code';
-  static const String isDark = 'isDark';
-  static const String userData = 'userData';
-  static const String userLogged = 'userLogged';
+
   static String accessToken = "accessToken";
-  static String localMessagesBoxes = "localMessagesBoxes";
-  static String authData = "authData";
-  static String haveUnreads = "haveUnreads";
-  static String firstLaunch = "firstLaunch";
-  static String companyData = "companyData";
-  static String archivePriorities = "ArchivePriorities";
-  static String countriesData = "countriesData";
-  static String deviceData = "deviceData";
-  static String committeesType = "committeesTypes";
+
 
 }
 
