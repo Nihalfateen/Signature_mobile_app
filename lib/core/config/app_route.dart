@@ -4,6 +4,7 @@ import 'package:tawqee3_mobile_app/feature/auth_feature/views/screens/login_scre
 import 'package:tawqee3_mobile_app/feature/meetings_feature/domain/services/meetings_cubit.dart';
 import 'package:tawqee3_mobile_app/feature/meetings_feature/views/meetings_screen/meetings_details_screen.dart';
 import 'package:tawqee3_mobile_app/feature/notifications_feature/domain/notifications_cubit.dart';
+import 'package:tawqee3_mobile_app/feature/profile_feature/domain/profile_cubit.dart';
 
 import '../../feature/DashBoard_feature/views/dashboard_screen/home_screen.dart';
 import '../../feature/auth_feature/domain/services/auth_cubit.dart';
@@ -104,7 +105,10 @@ class AppRouter {
                   routes: <RouteBase>[
                     GoRoute(
                         path: ProfileScreen.route,
-                        builder: (context, state) => ProfileScreen(),
+                        builder: (context, state) =>  BlocProvider(
+                          create: (context) => ProfileCubit(),
+                          child: ProfileScreen(),
+                        ),
                         routes: []),
                   ])
             ])

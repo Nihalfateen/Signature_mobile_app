@@ -13,8 +13,8 @@ class NotificationsRepo{
   Future getNotifications() async {
     try {
       var response = await _dioServices.getRequest(AppUrl.getNotifications);
-      var meetings=NotificationsModel.fromJson(response);
-      return meetings;
+      var notifications=NotificationsModel.fromJson(response);
+      return notifications;
     } on FailureModel {
       rethrow;
     } catch (e) {
