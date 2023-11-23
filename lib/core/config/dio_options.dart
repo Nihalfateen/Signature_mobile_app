@@ -17,8 +17,8 @@ class DioConfigOptions {
         // responseType: ResponseType.bytes,
         headers: {
           'Content-type': 'application/json',
-          // 'Accept': 'application/json',
-          "Accept": "text/plain",
+          'Accept': 'application/json',
+          // "Accept": "text/plain",
           // "lang":"${navigatorKey.currentState?.context.locale.languageCode}",
           'authorization': "Bearer ${Preference.getString(PrefKeys.accessToken)}",
         });

@@ -31,18 +31,16 @@ class AuthCubit extends Cubit<AuthState> {
     emit(AuthLoading());
     var basss = base64.encode(
         utf8.encode("${emailController.text}:${passwordController.text}"));
-    errorMessage = null;
-
     var response = authRepo.loginCall(basss);
     await response.excute(
       onFailed: (failed) {
-        errorMessage = failed.message;
+        errorMessage = "";
+        Logger().i(errorMessage);
         emit(AuthError(error: failed.message));
       },
       onSuccess: (value) async {
         getUserModel=UserModel.fromJson(value);
         Preference.setString(PrefKeys.accessToken, getUserModel!.token!);
-        Logger().w(value);
         emit(AuthDone());
       },
     );

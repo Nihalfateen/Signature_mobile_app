@@ -24,8 +24,7 @@ class AppUrl{
           (id) => 'meetings/$id/attendances';
   static String Function(String) get getMeetingsRecommendations =>
           (id) => 'meetings/$id/recommendations';
-
   static const postLogin ="sessions";
-
+  static const putProfile ="update_profile";
 }
  

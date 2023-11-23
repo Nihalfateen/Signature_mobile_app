@@ -11,7 +11,7 @@ extension ResponseHandler on Response {
     }else if (statusCode == 404 && statusMessage == "Not Found") {
       return {};
     }
-    else if (statusCode! >201 &&statusMessage != "Unauthorized" ) {
+    else if (statusCode! >201) {
       throw FailureModel(message:data,state:statusCode,data: data );
     }
     else {
@@ -32,7 +32,7 @@ extension DioExceptionHandler on DioException {
       case DioExceptionType.badCertificate:
         return "error";
       case DioExceptionType.badResponse:
-        return "error";
+        return "${response?.statusMessage}";
       case DioExceptionType.cancel:
         return "error";
       case DioExceptionType.connectionError:
