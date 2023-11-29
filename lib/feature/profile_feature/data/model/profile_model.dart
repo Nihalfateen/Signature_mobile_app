@@ -25,6 +25,7 @@ class Profile {
   String? job;
   String? jobState;
   String? avatar;
+  String?signature;
 
   Profile(
       {this.id,
@@ -33,7 +34,8 @@ class Profile {
         this.phone,
         this.job,
         this.jobState,
-        this.avatar});
+        this.avatar,
+      this.signature});
 
   Profile.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -43,6 +45,7 @@ class Profile {
     job = json['job'];
     jobState = json['job_state'];
     avatar = json['avatar'];
+    signature = json['signature'];
   }
   Map<String, dynamic> toMap() {
     return {"user":{

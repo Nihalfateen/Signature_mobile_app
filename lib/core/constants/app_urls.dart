@@ -26,5 +26,7 @@ class AppUrl{
           (id) => 'meetings/$id/recommendations';
   static const postLogin ="sessions";
   static const putProfile ="update_profile";
+  static const updateAvatar ="update_avatar";
+  static const updateSignature ="update_signature";
 }
  
