@@ -18,3 +18,19 @@ class UpdateProfileError extends ProfileState {
 
   UpdateProfileError({this.errorMessage});
 }
+class ImageDeleted extends ProfileState {}
+class ImageSelected extends ProfileState {}
+class UpdateAvatarLoading extends ProfileState {}
+class UpdateAvatarDone extends ProfileState {}
+class UpdateAvatarError extends ProfileState {
+  final String?errorMessage;
+
+  UpdateAvatarError({this.errorMessage});
+}
+class UpdateSignatureDone extends ProfileState {}
+class UpdateSignatureError extends ProfileState {
+  final String?errorMessage;
+
+  UpdateSignatureError({this.errorMessage});
+}
+class SignatureEdited extends ProfileState {}

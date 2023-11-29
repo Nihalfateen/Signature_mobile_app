@@ -63,8 +63,8 @@ dependencies:
   open_file: ^3.3.2
   dropdown_search: ^5.0.6
   intl: ^0.18.0
-  signature: ^5.4.0
-  image_picker: ^1.0.1
+  signature: ^5.4.1
+  image_picker: ^1.0.4
   dotted_border: ^2.0.0+3
   flutter_html: ^3.0.0-beta.2
   network_logger: ^1.0.4

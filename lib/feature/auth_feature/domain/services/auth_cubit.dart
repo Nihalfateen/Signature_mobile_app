@@ -29,9 +29,9 @@ class AuthCubit extends Cubit<AuthState> {
 
   Future<void> loginCall() async {
     emit(AuthLoading());
-    var basss = base64.encode(
+    var token = base64.encode(
         utf8.encode("${emailController.text}:${passwordController.text}"));
-    var response = authRepo.loginCall(basss);
+    var response = authRepo.loginCall(token);
     await response.excute(
       onFailed: (failed) {
         errorMessage = "";
