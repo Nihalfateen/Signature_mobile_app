@@ -67,42 +67,20 @@ class _MeetingsAttendanceWidgetState extends State<MeetingsAttendanceWidget> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      children: [
-                        element.avatar != null
-                            ? Image.network(
-                                "https://tawqeea.com/"
-                                "${element.avatar}",
-                                width: 45.w,
-                                height: 45.h)
-                            : Container(),
-                        Text(
-                          "${element.fullName}",
-                          style: Theme.of(context)
-                              .textTheme
-                              .displaySmall!
-                              .copyWith(color: Colors.black),
-                          textAlign: TextAlign.center,
-                        ),
-                        Spacer(),
-                        Container(
-                          padding: EdgeInsets.only(
-                              left: 8.w, right: 8.w, top: 5.h, bottom: 8.h),
-                          decoration: BoxDecoration(
-                            color: AppColors.green1,
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: Text(
-                            "${element.attendanceStatus}",
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleSmall!
-                                .copyWith(
-                                    color: AppColors.black1,
-                                    fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                      ],
+                    element.avatar != null
+                        ? Image.network(
+                            "https://tawqeea.com/"
+                            "${element.avatar}",
+                            width: 45.w,
+                            height: 45.h)
+                        : Container(),
+                    Text(
+                      "${element.fullName}",
+                      style: Theme.of(context)
+                          .textTheme
+                          .displaySmall!
+                          .copyWith(color: Colors.black),
+                      textAlign: TextAlign.center,
                     ),
                     SizedBox(height: 10.h),
                     Text(

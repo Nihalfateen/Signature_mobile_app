@@ -44,20 +44,27 @@ class _MeetingsDetailsScreenState extends State<MeetingsDetailsScreen> {
               textAlign: TextAlign.center,
             )),
           );
-        }else if(state is MeetingsDetailsLoading){
+        } else if (state is MeetingsDetailsLoading) {
           return const LoadingWidget();
-        }else if(state is MeetingsAttendanceLoading){
+        } else if (state is MeetingsAttendanceLoading) {
           return const LoadingWidget();
         }
         return SingleChildScrollView(
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          Padding(
+            padding: EdgeInsets.only(top:50.h,left:10.w,right:10.w),
+            child: Text(
+              "${meetingsCubit.meetingsBodyModel!.name}",
+              style: Theme.of(context).textTheme.displayMedium,
+            ),
+          ),
           Container(
             padding: EdgeInsets.only(
               left: 10.w,
               right: 10.w,
             ),
-            margin: EdgeInsets.only(top: 40.h),
+            margin: EdgeInsets.only(top:20.h),
             height: 52.h,
             decoration: BoxDecoration(color: AppColors.button),
             child: ButtonsTableWidget(),
